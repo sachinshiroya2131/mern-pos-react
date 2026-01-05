@@ -20,12 +20,18 @@ export default function CategoryForm() {
 
     // Fetch categories for dropdown
     useEffect(() => {
-        fetchCategories();
+       // fetchCategories();
+        fetchParentCategories(id);
         if (id) fetchCategory();
     }, [id]);
 
     const fetchCategories = async () => {
         const res = await api.get("/categories");
+        setCategories(res.data.data || []);
+    };
+
+    const fetchParentCategories = async () => {
+        const res = await api.get(`/categories/parents/${id ?? ""}`);
         setCategories(res.data.data || []);
     };
 
