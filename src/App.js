@@ -4,6 +4,10 @@ import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import CSS
+import Auth from "./routes/Auth";
+import DashboardLayout from "./layouts/DashboardLayout";
+import CategoryList from "./pages/categories/categoriesList";
+import CategoryForm from "./pages/categories/CategoryForm";
 
 function App() {
   return (
@@ -22,7 +26,15 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+
+        <Route element={<Auth />}>
+          <Route element={<DashboardLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/categories" element={<CategoryList />} />
+            <Route path="/categories/create" element={<CategoryForm />} />
+            <Route path="/categories/edit/:id" element={<CategoryForm />} />
+          </Route>
+        </Route>
 
         {/* Default redirect */}
         <Route path="/" element={<Navigate to="/login" />} />
