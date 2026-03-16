@@ -4,6 +4,7 @@ import api from "../../utils/axios";
 import slugify from "slugify";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { categorySchema } from "../../validations/categorySchema";
+import { toast } from "react-toastify";
 
 export default function CategoryForm() {
     const navigate = useNavigate();
@@ -55,9 +56,10 @@ export default function CategoryForm() {
                 await api.post("/categories", formData);
             }
 
-            navigate("/categories");
+           navigate("/categories");
+            toast.success("Category saved successfully!");
         } catch (error) {
-            console.error(error);
+            toast.error(error.response?.data?.message || "Failed to save category");
         } finally {
             setSubmitting(false);
         }
